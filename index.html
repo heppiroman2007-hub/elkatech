@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЁлкаТех — новогодний магазин электроники</title>
+  <meta name="description" content="Новогодняя распродажа электроники: смартфоны, ноутбуки, наушники и подарки к празднику.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Marck+Script&family=PT+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="snow" aria-hidden="true"></canvas>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#top" class="logo">
+        <svg class="logo__icon" viewBox="0 0 24 26" aria-hidden="true">
+          <path class="logo__tree" d="M12 4l5 7h-3l4 6h-3l4 6H5l4-6H6l4-6H7z"/>
+          <path class="logo__star" d="M12 0l1.2 2.6 2.8.3-2.1 1.9.6 2.8L12 6.2 9.5 7.6l.6-2.8L8 2.9l2.8-.3z"/>
+        </svg>
+        <span class="logo__text">Ёлка<b>Тех</b></span>
+      </a>
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="#catalog">Каталог</a>
+        <a href="#gifts">Кому подарок</a>
+        <a href="#benefits">Доставка</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <button class="icon-btn" id="snowToggle" type="button" title="Включить или выключить снег" aria-pressed="true">❄</button>
+        <button class="cart-btn" id="cartOpen" type="button" aria-label="Открыть корзину">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>
+          <span class="cart-btn__label">Корзина</span>
+          <span class="cart-btn__count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+    <div class="garland" id="garland" aria-hidden="true"></div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="hero__eyebrow">Новогодняя распродажа</p>
+          <h1 class="hero__title">Техника, которую<br>ждут под ёлкой</h1>
+          <p class="hero__text">Скидки до 30% на смартфоны, ноутбуки и гаджеты. Упакуем по-праздничному и доставим до боя курантов.</p>
+          <div class="hero__cta">
+            <a href="#catalog" class="btn btn--primary">Выбрать подарок</a>
+            <a href="#gifts" class="btn btn--ghost">Идеи подарков</a>
+          </div>
+        </div>
+
+        <div class="countdown" aria-label="До Нового года осталось">
+          <canvas class="fir-title" id="firTitle" role="img" aria-label="До новогоднего волшебства"></canvas>
+          <div class="countdown__grid">
+            <div class="countdown__cell"><span id="cdDays">00</span><small>дней</small></div>
+            <div class="countdown__cell"><span id="cdHours">00</span><small>часов</small></div>
+            <div class="countdown__cell"><span id="cdMinutes">00</span><small>минут</small></div>
+            <div class="countdown__cell"><span id="cdSeconds">00</span><small>секунд</small></div>
+          </div>
+          <p class="countdown__promo">Промокод <b>НОВЫЙГОД</b> — ещё −10% в корзине</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gifts">
+      <div class="container">
+        <p class="eyebrow">Подпишем бирку</p>
+        <h2 class="section__title">Кому подарок?</h2>
+        <div class="tags" id="tags"></div>
+      </div>
+    </section>
+
+    <section class="section" id="catalog">
+      <div class="container">
+        <div class="deal" id="deal"></div>
+
+        <p class="eyebrow">Всё, что под ёлкой</p>
+        <h2 class="section__title">Каталог</h2>
+
+        <div class="toolbar">
+          <div class="chips" id="chips" aria-label="Категории"></div>
+          <div class="toolbar__right">
+            <input class="input" id="search" type="search" placeholder="Поиск по каталогу" aria-label="Поиск по каталогу">
+            <select class="input" id="sort" aria-label="Сортировка">
+              <option value="popular">Сначала популярные</option>
+              <option value="cheap">Сначала дешевле</option>
+              <option value="expensive">Сначала дороже</option>
+              <option value="discount">По размеру скидки</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="products" id="products"></div>
+        <p class="empty" id="empty" hidden>Ничего не нашлось — попробуйте изменить запрос</p>
+      </div>
+    </section>
+
+    <section class="section" id="benefits">
+      <div class="container benefits">
+        <div class="benefits__text">
+          <p class="eyebrow">Без хлопот</p>
+          <h2 class="section__title">Праздник уже<br>включён в чек</h2>
+          <p>Упаковка, открытка и доставка до боя курантов — за наш счёт. Заказы, оформленные до 30 декабря, привезём до Нового года.</p>
+          <a href="#catalog" class="btn btn--ghost">Вернуться к подаркам</a>
+        </div>
+
+        <div class="receipt" aria-label="Что входит в заказ">
+          <p class="receipt__brand">ЁЛКАТЕХ</p>
+          <p class="receipt__center">подарочный чек № 2027</p>
+          <hr>
+          <div class="receipt__row"><span>Доставка до 31 декабря</span><i></i><span>0 ₽</span></div>
+          <div class="receipt__row"><span>Подарочная упаковка</span><i></i><span>0 ₽</span></div>
+          <div class="receipt__row"><span>Открытка от вас</span><i></i><span>0 ₽</span></div>
+          <div class="receipt__row"><span>Гарантия</span><i></i><span>2 года</span></div>
+          <div class="receipt__row"><span>Обмен и возврат</span><i></i><span>30 дней</span></div>
+          <div class="receipt__row"><span>Рассрочка на 6 месяцев</span><i></i><span>0 %</span></div>
+          <hr>
+          <div class="receipt__row receipt__row--total"><span>Итого хлопот</span><i></i><span>0 ₽</span></div>
+          <div class="receipt__barcode" aria-hidden="true"></div>
+          <p class="receipt__center">спасибо, что празднуете с нами</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contacts">
+    <svg class="footer__hills" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 60Q240 0 520 46T1000 40T1440 30V90H0z" fill="#10224a"/>
+      <path class="footer__ridge" d="M0 74Q300 30 640 62T1440 52V90H0z" fill="#050d1c"/>
+    </svg>
+    <div class="container footer__inner">
+      <div>
+        <p class="footer__wish">С наступающим!</p>
+        <p class="footer__note">Демонстрационный сайт. Товары и цены вымышлены.</p>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <p>8 800 000-00-00</p>
+        <p>hello@elkatech.example</p>
+      </div>
+      <div>
+        <h4>Режим работы</h4>
+        <p>Ежедневно 9:00–22:00</p>
+        <p>31 декабря — до 18:00</p>
+      </div>
+    </div>
+    <div class="container footer__legal">
+      <nav class="footer__docs" aria-label="Правовая информация">
+        <button type="button" data-doc="privacy">Политика обработки персональных данных</button>
+        <button type="button" data-doc="consent">Согласие на обработку данных</button>
+        <button type="button" data-doc="cookies">Политика cookie</button>
+        <button type="button" data-doc="terms">Пользовательское соглашение</button>
+        <button type="button" data-doc="returns">Доставка и возврат</button>
+        <button type="button" id="cookieReopen">Настройки cookie</button>
+      </nav>
+      <p class="footer__req">Продавец: <mark>[ИП Фамилия И. О. или ООО «Название»]</mark> · ИНН <mark>[000000000000]</mark> · ОГРНИП/ОГРН <mark>[000000000000000]</mark> · Адрес: <mark>[индекс, город, улица, дом]</mark> · E-mail: hello@elkatech.example</p>
+      <p class="footer__req">© 2026 ЁлкаТех. Информация на сайте носит справочный характер и не является публичной офертой.</p>
+    </div>
+  </footer>
+
+  <div class="overlay" id="overlay" hidden></div>
+  <aside class="cart" id="cart" aria-label="Корзина" aria-hidden="true">
+    <div class="cart__head">
+      <h2>Корзина</h2>
+      <button class="icon-btn" id="cartClose" type="button" aria-label="Закрыть корзину">✕</button>
+    </div>
+    <div class="cart__items" id="cartItems"></div>
+    <div class="cart__foot">
+      <form class="promo" id="promoForm">
+        <input class="input" id="promoInput" type="text" placeholder="Промокод" aria-label="Промокод" autocomplete="off">
+        <button class="btn btn--ghost" type="submit">Применить</button>
+      </form>
+      <p class="promo__msg" id="promoMsg"></p>
+      <div class="cart__row" id="discountRow" hidden><span>Скидка по промокоду</span><span id="cartDiscount"></span></div>
+      <div class="cart__row cart__row--total"><span>Итого</span><span id="cartTotal">0 ₽</span></div>
+      <button class="btn btn--primary btn--block" id="checkout" type="button">Оформить заказ</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <aside class="cookie" id="cookieBar" aria-label="Уведомление о cookie" hidden>
+    <svg class="cookie__icon" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="26" fill="#c98a4b"/>
+      <path d="M32 6a26 26 0 1 0 26 26 12 12 0 0 1-13-11A12 12 0 0 1 32 6z" fill="#b5763a"/>
+      <circle cx="22" cy="26" r="4" fill="#5b3418"/><circle cx="38" cy="40" r="4.5" fill="#5b3418"/><circle cx="24" cy="44" r="3" fill="#5b3418"/><circle cx="40" cy="24" r="2.5" fill="#fff"/><circle cx="31" cy="34" r="2" fill="#fff"/>
+    </svg>
+    <div>
+      <p class="cookie__title">Печенье для Деда Мороза</p>
+      <p class="cookie__text">Сайт использует cookie и локальное хранилище браузера, чтобы помнить вашу корзину и настройки. Подробности — в <button type="button" class="link" data-doc="cookies">Политике cookie</button>.</p>
+      <div class="cookie__actions">
+        <button class="btn btn--primary" type="button" data-cookies="all">Принять все</button>
+        <button class="btn btn--paper" type="button" data-cookies="necessary">Только необходимые</button>
+      </div>
+    </div>
+  </aside>
+
+  <dialog class="paper" id="legal" aria-labelledby="legalTitle">
+    <div class="paper__stripe" aria-hidden="true"></div>
+    <header class="paper__head">
+      <div>
+        <p class="paper__kicker">Канцелярия Деда Мороза · официальный документ</p>
+        <h2 class="paper__title" id="legalTitle"></h2>
+      </div>
+      <button class="paper__close" type="button" data-close aria-label="Закрыть">✕</button>
+    </header>
+    <div class="paper__body" id="legalBody"></div>
+    <footer class="paper__foot">
+      <span class="paper__seal" aria-hidden="true">❄</span>
+      <button class="btn btn--primary" type="button" data-close>Понятно</button>
+    </footer>
+  </dialog>
+
+  <dialog class="paper" id="order" aria-labelledby="orderTitle">
+    <div class="paper__stripe" aria-hidden="true"></div>
+    <header class="paper__head">
+      <div>
+        <p class="paper__kicker">Письмо Деду Морозу · оформление заказа</p>
+        <h2 class="paper__title" id="orderTitle">Куда везти подарки?</h2>
+      </div>
+      <button class="paper__close" type="button" data-close aria-label="Закрыть">✕</button>
+    </header>
+    <form class="paper__body order" id="orderForm">
+      <label class="field">Имя<input type="text" name="name" autocomplete="name" required></label>
+      <label class="field">Телефон<input type="tel" name="phone" autocomplete="tel" placeholder="+7 900 000-00-00" required></label>
+      <label class="field">E-mail<input type="email" name="email" autocomplete="email" required></label>
+      <label class="check">
+        <input type="checkbox" name="consent" required>
+        <span>Я даю <button type="button" class="link" data-doc="consent">согласие на обработку персональных данных</button> и принимаю <button type="button" class="link" data-doc="privacy">Политику обработки персональных данных</button> и <button type="button" class="link" data-doc="terms">Пользовательское соглашение</button>.</span>
+      </label>
+      <label class="check">
+        <input type="checkbox" name="marketing">
+        <span>Хочу получать новости и акции на e-mail. Необязательно, отписаться можно в любой момент.</span>
+      </label>
+      <p class="order__total">К оплате: <b id="orderTotal"></b></p>
+      <button class="btn btn--primary btn--block" type="submit">Отправить заказ</button>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
